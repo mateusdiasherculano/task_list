@@ -33,6 +33,14 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   }
 
   @override
+  void dispose() {
+    cubit.close(); // Feche o cubit para liberar recursos.
+    _nameController.dispose(); // Libere o controlador do TextEditingController.
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

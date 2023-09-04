@@ -132,10 +132,37 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           title: Text(todos[index]),
           trailing: IconButton(
             onPressed: () {
-              cubit.removeTodo(index: index);
+              _showDeleteConfirmationDialog(context, index);
             },
             icon: const Icon(Icons.delete, color: Colors.red),
           ),
+        );
+      },
+    );
+  }
+
+  void _showDeleteConfirmationDialog(BuildContext context, int index) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirmação'),
+          content: const Text('Tem certeza que deseja apagar este item?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o AlertDialog
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                cubit.removeTodo(index: index); // Remove o item da lista
+                Navigator.of(context).pop(); // Fecha o AlertDialog
+              },
+              child: const Text('Sim'),
+            ),
+          ],
         );
       },
     );
